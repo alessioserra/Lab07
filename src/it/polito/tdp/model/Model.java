@@ -9,6 +9,7 @@ public class Model {
 
 	PowerOutageDAO podao;
 	List<PowerOutages> listaP;
+	int bestPeopleAffected=0;
 	
 	public Model() {
 		podao = new PowerOutageDAO();
@@ -25,6 +26,7 @@ public class Model {
 		return string;
 	}
 	
+	//N.B. Per gli anni, se diversi, considero sempre l'anno di fine guasto
 	public List<PowerOutages> risolviProblema(String nomeNerc, int maxOre, int maxAnni){
 		
 		//Ottengo Id nel nerc dato il nome

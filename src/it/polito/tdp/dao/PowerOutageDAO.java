@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import it.polito.tdp.model.Nerc;
@@ -73,7 +74,7 @@ public class PowerOutageDAO {
 			ResultSet res = st.executeQuery();
 
 			while (res.next()) {
-				PowerOutages p = new PowerOutages(res.getInt("id"),res.getInt("customers_affected"),res.getDate("data_event_began"),res.getDate("data_event_finished"));
+				PowerOutages p = new PowerOutages(res.getInt("id"),res.getInt("customers_affected"),res.getTimestamp("data_event_began").toLocalDateTime(),res.getTimestamp("data_event_finished").toLocalDateTime());
 				POList.add(p);
 			}
 
