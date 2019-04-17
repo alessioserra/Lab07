@@ -69,12 +69,15 @@ public class Model {
 		//CASO INTERMEDIO
 		for (PowerOutages po : listaP) {
 			if (verifica(parziale,po)==true) {
+				//Verifico che la lista non contenga già l'elemento
+				if (parziale.contains(po)==false) {
 				//Scendo di livello
 				parziale.add(po);
 				//Ricorsione
 				risolvi(parziale,livello+1);
 				//backtracking
 				parziale.remove(parziale.size()-1);
+				}
 			}
 		}
 	}
@@ -82,10 +85,9 @@ public class Model {
 	public boolean verifica(List<PowerOutages> lista, PowerOutages prova) {
 		
 		//Inizializzo contatori
-		long somma = 0;
+		long somma = prova.getOreBlackOut();
 		int annoMin=2000000;
 		int annoM=0;
-		lista.add(prova);
 		
 		//Ciclo per trovare i valori che mi servono
 		for (PowerOutages p : lista) {
