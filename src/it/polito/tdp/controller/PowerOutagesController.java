@@ -1,9 +1,11 @@
 package it.polito.tdp.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.model.Model;
+import it.polito.tdp.model.PowerOutages;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,6 +50,20 @@ public class PowerOutagesController {
     @FXML
     void doAnalysis(ActionEvent event) {
 
+    	txtResult.clear();
+    	
+    	int anni = Integer.parseInt(txtYears.getText());
+    	int ore = Integer.parseInt(txtHours.getText());
+    	String nerc = choiceBox.getValue();
+    	
+    	List<PowerOutages> soluzione = model.risolviProblema(nerc,ore,anni);
+    	if (soluzione!=null) {
+    	for (PowerOutages p : soluzione) {
+    		txtResult.appendText(p.getDataInizio()+" - "+p.getDataFine()+" - "+p.getPersoneCoinvolte()+"\n");
+    	}
+    	txtResult.appendText("Numero totale persone coinvolte: "+model.getBestPeopleAffected());
+    	}
+    	else txtResult.appendText("Soluzione non trovata");
     }
 
     @FXML
