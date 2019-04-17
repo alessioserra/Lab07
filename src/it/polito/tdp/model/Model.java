@@ -8,6 +8,7 @@ import it.polito.tdp.dao.PowerOutageDAO;
 public class Model {
 
 	PowerOutageDAO podao;
+	List<PowerOutages> listaP;
 	
 	public Model() {
 		podao = new PowerOutageDAO();
@@ -26,13 +27,20 @@ public class Model {
 	
 	public List<PowerOutages> risolviProblema(String nomeNerc, int maxOre, int maxAnni){
 		
+		//Ottengo Id nel nerc dato il nome
+		int idNerc = podao.getIdNerc(nomeNerc);
 		
+		//Ottengo i valori relativi al NercId
+		listaP=podao.getPowerOutages(idNerc);
 		
+		//Creo lista parziale
+		List<PowerOutages> parziale = new ArrayList<PowerOutages>();
 		
+		//Ricorsione
+		risolvi(parziale,0);
 		
-		
-		
-		return null;
+		//ritorno risultato migliore trovato
+		return parziale;
 	}
 	
 	public void risolvi(List<PowerOutages> parziale,int livello) {

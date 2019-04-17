@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polito.tdp.model.Nerc;
+import it.polito.tdp.model.PowerOutages;
 
 public class PowerOutageDAO {
 
@@ -34,5 +35,54 @@ public class PowerOutageDAO {
 
 		return nercList;
 	}
+	
+	/** 
+	 * Metodo per trovare ID dato il nome del NERC
+	 * @param value
+	 * @return
+	 */
+	public int getIdNerc(String value) {
+		String sql = "SELECT id FROM nerc WHERE value=?";
+        int id=0;
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, value);
+			ResultSet res = st.executeQuery();
+			while (res.next()) {
+				id = res.getInt("id");
+			}
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return id;
+	}
+	
+	public List<PowerOutages> getPowerOutages(int id) {
 
+		String sql = "SELECT id,customers_affected,data_event_began,data_event_finished, FROM poweroutages WHERE nerc_id=?";
+		List<PowerOutages> POList = new ArrayList<>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			//Setto valore del nerc_id
+			st.setInt(1, id);
+			
+			ResultSet res = st.executeQuery();
+
+			while (res.next()) {
+				PowerOutages p = new PowerOutages(res.getInt("id"),res.getInt("customers_affected"),res.getDate("data_event_began"),res.getDate("data_event_finished"));
+				POList.add(p);
+			}
+
+			conn.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return POList;
+	    }
 }
