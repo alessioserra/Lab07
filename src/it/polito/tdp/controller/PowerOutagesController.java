@@ -17,6 +17,11 @@ public class PowerOutagesController {
 	
 	public void setModel(Model model) {
 		this.model=model;
+		this.getValoriBoxMese();
+	}
+	
+	public void getValoriBoxMese() {
+	    choiceBox.getItems().addAll(model.getNercList());
 	}
 
     @FXML
@@ -26,7 +31,7 @@ public class PowerOutagesController {
     private URL location;
 
     @FXML
-    private ChoiceBox<?> choiceBox;
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private TextField txtYears;
