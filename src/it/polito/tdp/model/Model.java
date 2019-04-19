@@ -84,10 +84,10 @@ public class Model {
 	
 	public boolean verifica(List<PowerOutages> lista, PowerOutages prova) {
 		
-		//Inizializzo contatori
+		//Inizializzo contatori con i valori della "prova"
 		long somma = prova.getOreBlackOut();
-		int annoMin=2000000;
-		int annoM=0;
+		int annoMin=prova.getAnno();
+		int annoM=prova.getAnno();
 		
 		//Ciclo per trovare i valori che mi servono
 		for (PowerOutages p : lista) {
@@ -97,7 +97,7 @@ public class Model {
 		}
 	
 		//Condizioni da rispettare
-		if ( (somma<=oreMax) && (annoM-annoMin)<=annoMax) return true;
+		if ( ((somma<=oreMax))&&((annoM-annoMin)<=annoMax)) return true;
 		else return false;
 	}
 	
