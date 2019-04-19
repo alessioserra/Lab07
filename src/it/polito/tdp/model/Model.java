@@ -68,6 +68,7 @@ public class Model {
 		
 		//CASO INTERMEDIO
 		for (PowerOutages po : listaP) {
+			
 			if (verifica(parziale,po)==true) {
 				//Verifico che la lista non contenga già l'elemento
 				if (parziale.contains(po)==false) {
@@ -80,6 +81,7 @@ public class Model {
 				}
 			}
 		}
+		return;
 	}
 	
 	public boolean verifica(List<PowerOutages> lista, PowerOutages prova) {
